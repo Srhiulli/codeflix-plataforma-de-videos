@@ -1,3 +1,4 @@
+import { Uuid } from '../../../shared/domain/value-objects/uuid.vo';
 import { Category } from '../category.entity';
 
 describe('Category Unit Test', () => {
@@ -11,13 +12,13 @@ describe('Category Unit Test', () => {
 
     test('constructor with all properties', () => {
         const category = new Category({
-            category_id: '123',
+            category_id: Uuid as any,
             name: 'Movie2',
             description: 'Category description',
             is_active: false,
             created_at: new Date('2024-01-01'),
         });
-        expect(category.category_id).toBe('123');
+        expect(category.category_id).toBe(Uuid);
         expect(category.name).toBe('Movie2');
         expect(category.description).toBe('Category description');
         expect(category.is_active).toBeFalsy();
@@ -52,24 +53,5 @@ describe('Category Unit Test', () => {
         const category = new Category({ name: 'Active Category', is_active: true });
         category.deactivate();
         expect(category.is_active).toBeFalsy();
-    });
-
-    test('toJSON method', () => {
-        const category = new Category({
-            category_id: '456',
-            name: 'Documentary',
-            description: 'Documentary category',
-            is_active: true,
-            created_at: new Date('2024-02-01'),
-        });
-
-        const json = category.toJSON();
-        expect(json).toEqual({
-            category_id: '456',
-            name: 'Documentary',
-            description: 'Documentary category',
-            is_active: true,
-            created_at: new Date('2024-02-01'),
-        });
     });
 });

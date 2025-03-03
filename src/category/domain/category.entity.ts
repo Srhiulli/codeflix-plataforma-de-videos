@@ -1,3 +1,4 @@
+import ValidatorRules from "../../shared/domain/validator/validator-rules";
 import { Uuid } from "../../shared/domain/value-objects/uuid.vo";
 
 export type CategoryConstructorProps = {
@@ -35,18 +36,22 @@ export class Category{
     }
 
     changeName(name: string): void {
+        ValidatorRules.values(name, 'name').required().string().maxLength(255)
         this.name = name
     }
 
     changeDescription(description: string): void {
+        ValidatorRules.values(description, 'description').string().maxLength(255)
         this.description = description
     }
 
     activate() {
+        ValidatorRules.values(this.is_active, 'is_active').boolean()
         this.is_active = true
     }
 
     deactivate() {
+        ValidatorRules.values(this.is_active, 'is_active').boolean()
         this.is_active = false
     }
     toJSON() {
